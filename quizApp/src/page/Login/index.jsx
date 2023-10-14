@@ -8,17 +8,17 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { ACCOUNTS } from "../../data/ACCOUNTS";
 
 export const Validationschema = Yup.object().shape({
   username: Yup.string()
-    .required("Username is required!!!")
+    .required("Username is empty!!!")
     .min(6, "Your username must be at least 6 characters!!!"),
   password: Yup.string()
-    .required("Password is required!!!")
+    .required("Password is empty!!!")
     .min(8, "Your password must be at least 8 characters!!!")
     .max(32, "Your password must be at least 32 characters"),
 });
@@ -74,6 +74,7 @@ function Login() {
       toast.error(error.errors[0]);
     }
   };
+  const notify = () => toast("Wow so easy!");
 
   return (
     <Box
@@ -87,6 +88,7 @@ function Login() {
         padding: 10,
       }}
     >
+      <ToastContainer />
       <Card sx={{ minWidth: 600 }}>
         <CardContent
           sx={{
