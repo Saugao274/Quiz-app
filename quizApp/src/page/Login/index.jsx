@@ -9,8 +9,10 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { ACCOUNTS } from "../../data/ACCOUNTS";
+
 export const Validationschema = Yup.object().shape({
   username: Yup.string()
     .required("Username is required!!!")
@@ -35,21 +37,17 @@ function Login() {
   const navigate = useNavigate();
 
   const checkAcc = () => {
-    const check = dataAcc.filter((account) => {
-      account.username === inputValues.username;
-      account.password === inputValues.password;
+    return dataAcc.some((account) => {
+      return (
+        account.username === inputValues.username &&
+        account.password === inputValues.password
+      );
     });
-    check.map((person) => {
-      console.log(person);
-    });
-    // ? true
-    // : false;
   };
   const handleLogin = async () => {
     try {
       await Validationschema.validate(inputValues, { abortEarly: false });
 
-      console.log(checkAcc());
       if (checkAcc()) {
         toast.success("Login successfully!!!");
         navigate("/play");
@@ -76,6 +74,7 @@ function Login() {
       toast.error(error.errors[0]);
     }
   };
+
   return (
     <Box
       sx={{
