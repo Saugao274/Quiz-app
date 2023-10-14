@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
-import Login from "./Login";
-import Play from "./Play";
+import Login from "./page/Login";
+import Play from "./page/Play";
 
 function App() {
   return (

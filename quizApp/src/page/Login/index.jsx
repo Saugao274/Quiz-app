@@ -10,18 +10,18 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-
+import { ACCOUNTS } from "../../data/ACCOUNTS";
 export const Validationschema = Yup.object().shape({
   username: Yup.string()
     .required("Username is required!!!")
-    .min(8, "Your username must be at least 8 characters!!!"),
+    .min(6, "Your username must be at least 6 characters!!!"),
   password: Yup.string()
     .required("Password is required!!!")
     .min(8, "Your password must be at least 8 characters!!!")
     .max(32, "Your password must be at least 32 characters"),
 });
-
 function Login() {
+  const [dataAcc, setDataAcc] = useState(ACCOUNTS);
   const [inputValues, setInputValues] = useState({
     username: "",
     password: "",
@@ -34,15 +34,25 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const checkAcc = () => {
+    const check = dataAcc.filter((account) => {
+      account.username === inputValues.username;
+      account.password === inputValues.password;
+    });
+    check.map((person) => {
+      console.log(person);
+    });
+    // ? true
+    // : false;
+  };
   const handleLogin = async () => {
     try {
       await Validationschema.validate(inputValues, { abortEarly: false });
-      if (
-        inputValues.username === "admin123" &&
-        inputValues.password === "12345678"
-      ) {
+
+      console.log(checkAcc());
+      if (checkAcc()) {
         toast.success("Login successfully!!!");
-        navigate("/home");
+        navigate("/play");
       } else {
         toast.error("Invalid username or password");
         setValidate({
@@ -66,7 +76,6 @@ function Login() {
       toast.error(error.errors[0]);
     }
   };
-  console.log(validate);
   return (
     <Box
       sx={{

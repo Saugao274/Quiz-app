@@ -4,12 +4,14 @@ import {
   Card,
   CardContent,
   FormControlLabel,
+  IconButton,
   Radio,
   RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import SendIcon from "@mui/icons-material/Send";
 function Play() {
   return (
     <>
@@ -31,27 +33,33 @@ function Play() {
             Add your question
           </Typography>
           <CardContent
-            sx={{ display: "flex", mt: "20px", mb: "20px", p: "0px" }}
+            sx={{
+              display: "flex",
+              mt: "20px",
+              mb: "20px",
+              p: "0px",
+              justifyContent: "space-between",
+            }}
           >
             <TextField
               // id="outlined-multiline-static"
               label="Easy"
               multiline
               defaultValue="0"
-              sx={{ mr: "5px" }}
+              // sx={{ mr: "5px" }}
             ></TextField>
             <TextField
               // id="outlined-multiline-static"
               label="Medium"
               multiline
               defaultValue="0"
-              sx={{ ml: "5px", mr: "5px" }}
+              // sx={{ ml: "5px", mr: "5px" }}
             ></TextField>
             <TextField
               id="outlined-multiline-static"
               label="Hard"
               multiline
-              sx={{ ml: "5px" }}
+              // sx={{ ml: "5px" }}
               defaultValue="0"
             ></TextField>
           </CardContent>
@@ -126,6 +134,25 @@ function Play() {
               />
             </RadioGroup>
           </CardContent>
+        </Card>
+        <Card
+          sx={{
+            mt: "30px",
+            width: "50%",
+            display: "flex",
+            justifyContent: "space-evenly",
+            // padding: " 5px ",
+            backgroundColor: "#eee",
+            mb: "20px",
+            boxShadow: "none",
+          }}
+        >
+          <Button variant="outlined" startIcon={<DeleteIcon />}>
+            Delete all
+          </Button>
+          <Button variant="contained" endIcon={<SendIcon />}>
+            Submit your answer
+          </Button>
         </Card>
       </Box>
     </>
