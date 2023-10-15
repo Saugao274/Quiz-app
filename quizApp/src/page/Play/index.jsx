@@ -1,3 +1,4 @@
+//rafc
 import {
   Box,
   Button,
@@ -12,6 +13,8 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
+import { useState } from "react";
+import QuestionBOX from "./component/questionBox";
 function Play() {
   return (
     <>
@@ -73,68 +76,7 @@ function Play() {
             Generate
           </Button>
         </Card>
-        <Card sx={{ width: "70%", mt: "50px", backgroundColor: "#eee" }}>
-          <CardContent
-            sx={{
-              borderLeft: "solid 0.3em #fff",
-              borderLeftColor: "green",
-              backgroundColor: "#fff",
-              mb: "20px",
-            }}
-          >
-            <Typography variant="h6">Question 1: What ....</Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              Your answer
-            </Typography>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="female"
-              name="radio-buttons-group"
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
-              />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="Other"
-              />
-            </RadioGroup>
-          </CardContent>
-          <CardContent
-            sx={{
-              borderLeft: "solid 0.3em #fff",
-              borderLeftColor: "green",
-              backgroundColor: "#fff",
-              pb: "20px",
-            }}
-          >
-            <Typography variant="h6">Question 1: What ....</Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              Your answer
-            </Typography>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="female"
-              name="radio-buttons-group"
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
-              />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="Other"
-              />
-            </RadioGroup>
-          </CardContent>
-        </Card>
+        <QuestionBOX />
         <Card
           sx={{
             mt: "30px",

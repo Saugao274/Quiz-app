@@ -74,7 +74,6 @@ function Login() {
       toast.error(error.errors[0]);
     }
   };
-  const notify = () => toast("Wow so easy!");
 
   return (
     <Box
