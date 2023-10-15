@@ -4,10 +4,6 @@ import {
   Button,
   Card,
   CardContent,
-  FormControlLabel,
-  IconButton,
-  Radio,
-  RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
@@ -79,10 +75,8 @@ function Play() {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
-          // backgroundColor: "#eee",
           flexDirection: "column",
           backgroundColor: "#eeeeee",
-          // lineHeight: "30px",
         }}
       >
         <ToastContainer />

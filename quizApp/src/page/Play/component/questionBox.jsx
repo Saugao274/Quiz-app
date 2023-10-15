@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardContent,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, RadioGroup, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { QUESTIONS } from "../../../data/QUESTIONS";
 import AnswersBox from "./answersBox";
