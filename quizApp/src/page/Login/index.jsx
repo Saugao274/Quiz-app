@@ -23,7 +23,7 @@ export const Validationschema = Yup.object().shape({
     .max(32, "Your password must be at least 32 characters"),
 });
 function Login() {
-  const [dataAcc, setDataAcc] = useState(ACCOUNTS);
+  const [dataAcc] = useState(ACCOUNTS);
   const [inputValues, setInputValues] = useState({
     username: "",
     password: "",
