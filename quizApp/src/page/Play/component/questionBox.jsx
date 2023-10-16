@@ -1,16 +1,36 @@
-import { Card, CardContent, RadioGroup, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { QUESTIONS } from "../../../data/QUESTIONS";
 import AnswersBox from "./answersBox";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SendIcon from "@mui/icons-material/Send";
+import DialogSubmit from "./dialogSubmit";
 
-const QuestionBOX = ({ numberEasy, numberMedium, numberHard }) => {
-  // const [easyQuestion] = useState(
-  //   QUESTIONS.filter((ques) => ques.difficulty === "easy")
-  //     .sort(() => Math.random() - 0.5)
-  //     .slice(0, numberEasy)
-  //   // .sort(() => Math.random() - 0.5)
-  // );
+function QuestionBOX(props) {
+  const {
+    selectedValue,
+    setSelectedValue,
+    numberEasy,
+    numberMedium,
+    numberHard,
+    handleDeleteAll,
+  } = props;
+  const [open, setOpen] = React.useState(false);
   const [dataQuestion, setDataQuestion] = useState(QUESTIONS);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
 
   useEffect(() => {
     const easyQuestions = QUESTIONS.filter((ques) => ques.difficulty === "easy")
@@ -62,10 +82,12 @@ const QuestionBOX = ({ numberEasy, numberMedium, numberHard }) => {
 
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              // defaultValue=""
               name={`radio-buttons-group ${index}`}
             >
               <AnswersBox
+                questionId={ques.id}
+                selectAnswers={selectedValue}
+                setAnswerValue={setSelectedValue}
                 correctAns={ques.correctAnswer}
                 incorrectAns={ques.incorrectAnswers}
               />
@@ -73,7 +95,39 @@ const QuestionBOX = ({ numberEasy, numberMedium, numberHard }) => {
           </CardContent>
         </Card>
       ))}
+      <Card
+        sx={{
+          mt: "30px",
+          width: "50%",
+          display: "flex",
+          justifyContent: "space-evenly",
+          backgroundColor: "#eee",
+          mb: "20px",
+          boxShadow: "none",
+        }}
+      >
+        <Button
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+          onClick={handleDeleteAll}
+        >
+          Delete all
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<SendIcon />}
+          onClick={handleClickOpen}
+        >
+          Submit your answer
+        </Button>
+        <DialogSubmit
+          selectedValue={selectedValue}
+          open={open}
+          onClose={handleClose}
+          dataQuestion={dataQuestion}
+        />
+      </Card>
     </>
   );
-};
+}
 export default QuestionBOX;

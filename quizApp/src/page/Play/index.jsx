@@ -1,5 +1,6 @@
 //rafc
 import {
+  Avatar,
   Box,
   Button,
   Card,
@@ -7,9 +8,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
+
+import React, { useState } from "react";
 import QuestionBOX from "./component/questionBox";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
@@ -21,6 +21,8 @@ export const Validationschema = Yup.object().shape({
 });
 
 function Play() {
+  const [selectedValue, setSelectedValue] = React.useState([]);
+  //[{id,answer}]
   const [validate, setValidate] = useState({
     easy: false,
     hard: false,
@@ -37,6 +39,7 @@ function Play() {
     hard: 0,
   });
   const handleGenerate = async () => {
+    setSelectedValue([]);
     try {
       await Validationschema.validate(numbersGenerate, { abortEarly: false });
       setValidate({
@@ -62,10 +65,11 @@ function Play() {
       toast.error(error.errors[0]);
     }
   };
-  const handleDelete = () => {
+  const handleDeleteAll = () => {
     setChoice({ easy: 0, medium: 0, hard: 0 });
     setNumbersGenerate({ easy: 0, medium: 0, hard: 0 });
   };
+
   return (
     <>
       <Box
@@ -102,7 +106,7 @@ function Play() {
               onChange={(e) => {
                 setNumbersGenerate({
                   ...numbersGenerate,
-                  easy: parseInt(e.target.value) || 0,
+                  easy: e.target.value.trim(),
                 });
               }}
             ></TextField>
@@ -114,7 +118,7 @@ function Play() {
               onChange={(e) => {
                 setNumbersGenerate({
                   ...numbersGenerate,
-                  medium: parseInt(e.target.value) || 0,
+                  medium: e.target.value.trim(),
                 });
               }}
             ></TextField>
@@ -126,7 +130,7 @@ function Play() {
               onChange={(e) => {
                 setNumbersGenerate({
                   ...numbersGenerate,
-                  hard: parseInt(e.target.value.trim() || 0),
+                  hard: e.target.value.trim(),
                 });
               }}
               value={numbersGenerate.hard.toString()}
@@ -142,9 +146,12 @@ function Play() {
           </Button>
         </Card>
         <QuestionBOX
+          selectedValue={selectedValue}
+          setSelectedValue={setSelectedValue}
           numberEasy={choice.easy}
           numberMedium={choice.medium}
           numberHard={choice.hard}
+          handleDeleteAll={handleDeleteAll}
         />
         <Card
           sx={{
@@ -157,18 +164,7 @@ function Play() {
             mb: "20px",
             boxShadow: "none",
           }}
-        >
-          <Button
-            variant="outlined"
-            startIcon={<DeleteIcon />}
-            onClick={handleDelete}
-          >
-            Delete all
-          </Button>
-          <Button variant="contained" endIcon={<SendIcon />}>
-            Submit your answer
-          </Button>
-        </Card>
+        ></Card>
       </Box>
     </>
   );
