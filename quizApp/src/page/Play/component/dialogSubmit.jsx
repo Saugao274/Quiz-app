@@ -1,18 +1,21 @@
 import {
   Dialog,
+  IconButton,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
+  TableHead,
   TableRow,
 } from "@mui/material";
 import React, { useState } from "react";
-
+import CloseIcon from "@mui/icons-material/Close";
 function DialogSubmit(props) {
   const { onClose, selectedValue, open, dataQuestion } = props;
   const [rows, setRows] = useState([]);
 
   const handleClose = () => {
-    onClose(selectedValue.id);
+    onClose(selectedValue);
   };
   const listRows = () => {
     const data = dataQuestion.map((el) => {
@@ -31,7 +34,6 @@ function DialogSubmit(props) {
   React.useEffect(() => {
     setRows(listRows());
   }, [selectedValue, dataQuestion]);
-  console.log(rows, selectedValue);
   const getTotal = () => {
     let total = 0;
     {
@@ -49,6 +51,32 @@ function DialogSubmit(props) {
       open={open}
     >
       <TableContainer size="large" aria-label="a dense table">
+        <TableHead
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            m: "10px",
+            mt: "20px",
+          }}
+        >
+          <TableHead colSpan={5} sx={{ fontWeight: "800", fontSize: "small" }}>
+            TABLE RESULT
+          </TableHead>
+
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </TableHead>
         <TableRow>
           <TableCell>NO</TableCell>
           <TableCell align="center">Question</TableCell>
@@ -69,14 +97,14 @@ function DialogSubmit(props) {
             </TableRow>
           ))}
         </TableBody>
-        <TableRow>
-          <TableCell align="right" colSpan={4}>
+        <TableFooter>
+          <TableCell align="right" colSpan={4} sx={{ fontWeight: "800" }}>
             TOTAL
           </TableCell>
-          <TableCell>
+          <TableCell sx={{ fontWeight: "800" }}>
             {getTotal()}/{rows.length}
           </TableCell>
-        </TableRow>
+        </TableFooter>
       </TableContainer>
     </Dialog>
   );

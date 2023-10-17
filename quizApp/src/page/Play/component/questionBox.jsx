@@ -26,12 +26,10 @@ function QuestionBOX(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = (value) => {
     setOpen(false);
     setSelectedValue(value);
   };
-
   useEffect(() => {
     const easyQuestions = QUESTIONS.filter((ques) => ques.difficulty === "easy")
       .sort(() => Math.random() - 0.5)
